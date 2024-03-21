@@ -1,3 +1,5 @@
+# 使用OpenJDK 11作为基础镜像
+FROM openjdk:11-jre-slim
 # 使用Maven来构建项目
 FROM maven:3.8.4-openjdk-11-slim AS build
 
@@ -7,9 +9,6 @@ COPY src ./src
 
 # 打包Spring Boot项目
 RUN mvn clean package -DskipTests
-
-# 使用OpenJDK 11作为基础镜像
-FROM openjdk:11-jre-slim
 
 # 设置工作目录
 WORKDIR /app
