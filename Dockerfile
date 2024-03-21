@@ -3,12 +3,10 @@ FROM maven:3.8.4-openjdk-11-slim AS build
 
 # 复制项目的pom.xml文件并下载依赖
 COPY pom.xml .
-
-# 使用Maven下载依赖
-RUN mvn dependency:go-offline
+COPY src ./src
 
 # 打包Spring Boot项目
-RUN mvn package -DskipTests
+RUN mvn clean package -DskipTests
 
 # 使用OpenJDK 11作为基础镜像
 FROM openjdk:11-jre-slim
